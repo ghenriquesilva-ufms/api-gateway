@@ -1,0 +1,16 @@
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+httpx==0.27.2
+redis==5.0.8
+asyncpg==0.29.0
+psycopg[binary]==3.2.3
+prometheus-client==0.21.0
+PyJWT==2.9.0
+cryptography==43.0.1
+pydantic==2.8.2
+pydantic-settings==2.4.0
+
+pytest==8.3.3
+pytest-asyncio==0.24.0
+testcontainers[postgresql,redis]==4.7.2
+anyio==4.6.0

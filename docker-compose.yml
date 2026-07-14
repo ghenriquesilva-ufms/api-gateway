@@ -1,0 +1,70 @@
+services:
+  gateway:
+    build:
+      context: .
+      dockerfile: gateway/Dockerfile
+    environment:
+      GATEWAY_ENV: development
+      REDIS_URL: redis://redis:6379/0
+      DATABASE_URL: postgresql://gateway:gateway@postgres:5432/gateway
+      JWT_SECRET: dev-jwt-secret
+      JWT_CLOCK_SKEW_SECONDS: 30
+      RATE_LIMIT_CAPACITY: 10
+      RATE_LIMIT_REFILL_RATE_PER_SECOND: 5
+      BACKEND_ALPHA_URL: http://backend-alpha:8000
+      BACKEND_BRAVO_URL: http://backend-bravo:8000
+      BACKEND_CHARLIE_URL: http://backend-charlie:8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+      - postgres
+      - backend-alpha
+      - backend-bravo
+      - backend-charlie
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: gateway
+      POSTGRES_USER: gateway
+      POSTGRES_PASSWORD: gateway
+    volumes:
+      - ./database/init:/docker-entrypoint-initdb.d:ro
+    ports:
+      - "5432:5432"
+
+  backend-alpha:
+    build:
+      context: .
+      dockerfile: services/dummy_backend/Dockerfile
+    environment:
+      SERVICE_NAME: alpha
+      FAKE_LATENCY_MS: 40
+    ports:
+      - "8011:8000"
+
+  backend-bravo:
+    build:
+      context: .
+      dockerfile: services/dummy_backend/Dockerfile
+    environment:
+      SERVICE_NAME: bravo
+      FAKE_LATENCY_MS: 60
+    ports:
+      - "8012:8000"
+
+  backend-charlie:
+    build:
+      context: .
+      dockerfile: services/dummy_backend/Dockerfile
+    environment:
+      SERVICE_NAME: charlie
+      FAKE_LATENCY_MS: 80
+    ports:
+      - "8013:8000"
