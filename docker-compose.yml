@@ -16,6 +16,9 @@ services:
       BACKEND_CHARLIE_URL: http://backend-charlie:8000
     ports:
       - "8000:8000"
+    volumes:
+      - ./gateway/app:/app/app
+      - ./tests:/app/tests
     depends_on:
       - redis
       - postgres
