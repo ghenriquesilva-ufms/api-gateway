@@ -1,6 +1,6 @@
 # API Gateway with Authentication, Rate Limiting, and Circuit Breaking
 
-Portfolio project skeleton for a production-style API gateway built with Python 3.12 and FastAPI.
+This is a work-in-progress production-style API gateway built with Python 3.12 and FastAPI made for the sole purpose of learning how API gateways work.
 
 ## Current phase
 
@@ -18,8 +18,8 @@ This repository currently contains only the project structure and runnable place
 
 ## Next phase
 
-- JWT verification in the gateway.
-- Redis-backed token bucket rate limiting.
-- Redis-backed circuit breaker state.
-- Real proxy forwarding and service registry reads from Postgres.
-- Unit and integration tests.
+- JWT verification in the gateway;
+- Redis-backed token bucket rate limiting;
+- Redis-backed circuit breaker state;
+- Real proxy forwarding and service registry reads from Postgres;
+- Unit and integration tests;
